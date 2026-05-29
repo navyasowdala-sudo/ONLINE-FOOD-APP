@@ -1,30 +1,46 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
-  const [user, setUser] = useState({
+
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
   const handleChange = (e) => {
-    setUser({
-      ...user,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    console.log(user);
+    try {
+
+      await axios.post(
+        "http://localhost:5000/api/auth/register",
+        formData
+      );
+
+      alert("Registration Success");
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="form-container">
+
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
+
         <input
           type="text"
           name="name"
@@ -47,6 +63,7 @@ const Register = () => {
         />
 
         <button type="submit">Register</button>
+
       </form>
     </div>
   );

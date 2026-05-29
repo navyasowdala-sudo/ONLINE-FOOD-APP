@@ -1,37 +1,46 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import FoodCard from "../components/FoodCard";
 
 const Menu = () => {
-  const foods = [
-    {
-      id: 1,
-      name: "Burger",
-      price: 120,
-    },
-    {
-      id: 2,
-      name: "Pizza",
-      price: 250,
-    },
-  ];
+
+  const [foods, setFoods] = useState([]);
+
+  useEffect(() => {
+
+    fetchFoods();
+
+  }, []);
+
+  const fetchFoods = async () => {
+
+    try {
+
+      const res = await axios.get(
+        "http://localhost:5000/api/foods"
+      );
+
+      setFoods(res.data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <>
-      <Navbar />
+    <div className="menu-container">
 
-      <div className="container">
-        <h1>Food Menu</h1>
+      <h2>Food Menu</h2>
+
+      <div className="food-grid">
 
         {foods.map((food) => (
-          <div key={food.id} className="food-card">
-            <h3>{food.name}</h3>
-            <p>₹{food.price}</p>
-
-            <button>Add To Cart</button>
-          </div>
+          <FoodCard key={food._id} food={food} />
         ))}
+
       </div>
-    </>
+    </div>
   );
 };
 

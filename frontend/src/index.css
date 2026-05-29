@@ -4,7 +4,8 @@ body {
 }
 
 .navbar {
-  background: orange;
+  background: black;
+  color: white;
   padding: 15px;
   display: flex;
   justify-content: space-between;
@@ -12,7 +13,7 @@ body {
 
 .navbar a {
   color: white;
-  margin-left: 15px;
+  margin-left: 10px;
   text-decoration: none;
 }
 
@@ -20,25 +21,42 @@ body {
   padding: 20px;
 }
 
-.food-card {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 10px;
-}
-
 .form-container {
   width: 300px;
-  margin: 40px auto;
+  margin: auto;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 input {
-  width: 100%;
+  margin-bottom: 10px;
   padding: 10px;
-  margin-top: 10px;
 }
 
 button {
-  padding: 10px 15px;
-  margin-top: 10px;
+  padding: 10px;
+  background: orange;
+  border: none;
   cursor: pointer;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.food-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.food-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
