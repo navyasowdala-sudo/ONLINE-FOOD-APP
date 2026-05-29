@@ -19,10 +19,10 @@ function Menu() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/foods"
+        "https://online-food-app-zn4y.onrender.com/api/foods"
       );
 
-      setFoods(res.data);
+      setFoods(res.data.foods);
 
     } catch (error) {
 
