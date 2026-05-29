@@ -1,9 +1,14 @@
-import React from 'react'
+import Navbar from "./components/Navbar";
+import AppRoutes from "./routes/AppRoutes";
+import AdminDashboard from "./pages/AdminDashboard";
 
-export default function App() {
+function App() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <Navbar />
+      <AppRoutes />
+    </>
+  );
 }
+
+export default App;
