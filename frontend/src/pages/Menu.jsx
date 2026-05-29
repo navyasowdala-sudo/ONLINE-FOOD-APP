@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
+
 import axios from "axios";
 
 import FoodCard from "../components/FoodCard";
 
 function Menu() {
 
-  const [foods, setFoods] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [foods, setFoods] =
+    useState([]);
 
-  // Fetch foods when page loads
+  const [loading, setLoading] =
+    useState(true);
+
   useEffect(() => {
+
     fetchFoods();
+
   }, []);
 
-  // Fetch API
   const fetchFoods = async () => {
 
     try {
@@ -22,22 +26,24 @@ function Menu() {
         "https://online-food-app-zn4y.onrender.com/api/foods"
       );
 
-      setFoods(res.data.foods);
+      console.log(res.data);
+
+      setFoods(res.data);
 
     } catch (error) {
 
-      console.log(
-        "Error fetching foods:",
-        error
-      );
+      console.log(error);
 
     } finally {
 
       setLoading(false);
+
     }
+
   };
 
   return (
+
     <div className="menu-container">
 
       <h1 className="menu-title">
@@ -66,10 +72,13 @@ function Menu() {
           ))}
 
         </div>
+
       )}
 
     </div>
+
   );
+
 }
 
 export default Menu;
