@@ -3,16 +3,17 @@ import axios from "axios";
 
 import FoodCard from "../components/FoodCard";
 
-const Menu = () => {
+function Menu() {
 
   const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch foods when page loads
   useEffect(() => {
-
     fetchFoods();
-
   }, []);
 
+  // Fetch API
   const fetchFoods = async () => {
 
     try {
@@ -24,24 +25,51 @@ const Menu = () => {
       setFoods(res.data);
 
     } catch (error) {
-      console.log(error);
+
+      console.log(
+        "Error fetching foods:",
+        error
+      );
+
+    } finally {
+
+      setLoading(false);
     }
   };
 
   return (
     <div className="menu-container">
 
-      <h2>Food Menu</h2>
+      <h1 className="menu-title">
+        Food Menu
+      </h1>
 
-      <div className="food-grid">
+      {loading ? (
 
-        {foods.map((food) => (
-          <FoodCard key={food._id} food={food} />
-        ))}
+        <h2>Loading...</h2>
 
-      </div>
+      ) : foods.length === 0 ? (
+
+        <h2>No Foods Available</h2>
+
+      ) : (
+
+        <div className="food-grid">
+
+          {foods.map((food) => (
+
+            <FoodCard
+              key={food._id}
+              food={food}
+            />
+
+          ))}
+
+        </div>
+      )}
+
     </div>
   );
-};
+}
 
 export default Menu;

@@ -1,21 +1,35 @@
-import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
-const FoodCard = ({ food }) => {
+function FoodCard({ food }) {
+
+  const { addToCart } = useCart();
+
   return (
     <div className="food-card">
 
-      <img src={food.image} alt={food.title} />
+      <img
+        src={food.image}
+        alt={food.name}
+        className="food-image"
+      />
 
-      <h3>{food.title}</h3>
+      <div className="food-info">
 
-      <p>₹{food.price}</p>
+        <h3>{food.name}</h3>
 
-      <Link to={`/food/${food._id}`}>
-        View Details
-      </Link>
+        <p>{food.description}</p>
 
+        <h4>₹{food.price}</h4>
+
+        <button
+          onClick={() => addToCart(food)}
+        >
+          Add To Cart
+        </button>
+
+      </div>
     </div>
   );
-};
+}
 
 export default FoodCard;
