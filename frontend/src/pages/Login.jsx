@@ -43,12 +43,13 @@ const Login = () => {
     <div className="auth-container">
       <form 
       className="auth-form"
-    >
-    </form>
-      <h2>Login</h2>
+      onSubmit={handleSubmit}
+    
+    
+      
 
-      <form onSubmit={handleSubmit}>
 
+>
         <input
           type="email"
           name="email"
