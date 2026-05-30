@@ -32,12 +32,19 @@ const Login = () => {
 
     } catch (error) {
       console.log(error);
+       alert(
+        error.response?.data?.message ||
+          "Login Failed"
+       );
     }
   };
 
   return (
-    <div className="form-container">
-
+    <div className="auth-container">
+      <form 
+      className="auth-form"
+    >
+    </form>
       <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
@@ -46,14 +53,18 @@ const Login = () => {
           type="email"
           name="email"
           placeholder="Enter Email"
+          value={formData.email}
           onChange={handleChange}
+          required
         />
 
         <input
           type="password"
           name="password"
           placeholder="Enter Password"
+          value={formData.password}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">Login</button>

@@ -31,15 +31,22 @@ const Register = () => {
 
     } catch (error) {
       console.log(error);
+       alert(
+        error.response?.data?.message ||
+          "Registration Failed"
+       );
     }
   };
 
   return (
-    <div className="form-container">
+    <div className="auth-container">
 
       <h2>Register</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form
+      className="auth-form"
+
+      onSubmit={handleSubmit}>
 
         <input
           type="text"

@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar";
+
 import SearchBar from "../components/SearchBar";
 import banner from "../assets/food-banner.jpg";
 
 function Home() {
   return (
     <>
-      <Navbar />
+      
 
       <div
         className="hero"

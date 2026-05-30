@@ -1,10 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-// Create Context
 const CartContext = createContext();
 
-// Provider Component
-function CartProvider({ children }) {
+export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   // Load cart from localStorage
@@ -24,16 +27,16 @@ function CartProvider({ children }) {
     );
   }, [cartItems]);
 
-  // Add to cart
+  // Add Item
   const addToCart = (food) => {
     const existingItem = cartItems.find(
-      (item) => item.id === food.id
+      (item) => item._id === food._id
     );
 
     if (existingItem) {
       setCartItems(
         cartItems.map((item) =>
-          item.id === food.id
+          item._id === food._id
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -52,18 +55,20 @@ function CartProvider({ children }) {
     }
   };
 
-  // Remove from cart
+  // Remove Item
   const removeFromCart = (id) => {
     setCartItems(
-      cartItems.filter((item) => item.id !== id)
+      cartItems.filter(
+        (item) => item._id !== id
+      )
     );
   };
 
-  // Increase quantity
-  const increaseQty = (id) => {
+  // Increase Quantity
+  const increaseQuantity = (id) => {
     setCartItems(
       cartItems.map((item) =>
-        item.id === id
+        item._id === id
           ? {
               ...item,
               quantity: item.quantity + 1,
@@ -73,26 +78,30 @@ function CartProvider({ children }) {
     );
   };
 
-  // Decrease quantity
-  const decreaseQty = (id) => {
+  // Decrease Quantity
+  const decreaseQuantity = (id) => {
     setCartItems(
-      cartItems.map((item) =>
-        item.id === id && item.quantity > 1
-          ? {
-              ...item,
-              quantity: item.quantity - 1,
-            }
-          : item
-      )
+      cartItems
+        .map((item) =>
+          item._id === id
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+              }
+            : item
+        )
+        .filter(
+          (item) => item.quantity > 0
+        )
     );
   };
 
-  // Clear cart
+  // Clear Cart
   const clearCart = () => {
     setCartItems([]);
   };
 
-  // Total price
+  // Total Price
   const totalPrice = cartItems.reduce(
     (total, item) =>
       total + item.price * item.quantity,
@@ -105,8 +114,8 @@ function CartProvider({ children }) {
         cartItems,
         addToCart,
         removeFromCart,
-        increaseQty,
-        decreaseQty,
+        increaseQuantity,
+        decreaseQuantity,
         clearCart,
         totalPrice,
       }}
@@ -114,11 +123,7 @@ function CartProvider({ children }) {
       {children}
     </CartContext.Provider>
   );
-}
+};
 
-// Custom Hook
-function useCart() {
-  return useContext(CartContext);
-}
-
-export { CartProvider, useCart };
+export const useCart = () =>
+  useContext(CartContext);
